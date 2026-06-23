@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sunny'sideup English</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --indigo:#4F46E5;--indigo-mid:#6366F1;--indigo-light:#EEF2FF;
+  --pink:#EC4899;--pink-mid:#F472B6;--pink-light:#FDF2F8;
+  --violet:#7C3AED;--violet-light:#F5F3FF;
+  --cyan:#06B6D4;--cyan-light:#ECFEFF;
+  --lime:#84CC16;--lime-light:#F7FEE7;
+  --amber:#F59E0B;--amber-light:#FFFBEB;
+  --coral:#F43F5E;--coral-light:#FFF1F2;
+  --green:#10B981;--green-light:#ECFDF5;
+  --dark:#0A0A0F;--dark2:#111827;
+  --mid:#6B7280;--muted:#9CA3AF;
+  --border:#E5E7EB;--bg:#FAFAFA;--white:#FFFFFF;
+  --kr:'Noto Sans KR',sans-serif;
+  --head:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--dark);background:var(--bg);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* ── NAV ─────────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(10,10,15,.88);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 40px;height:60px;
+}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.logo-mark{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--indigo),var(--pink));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--head);font-weight:700;font-size:14pt;color:white;
+}
+.logo-name{font-family:var(--head);font-weight:700;font-size:12pt;color:white}
+.logo-name em{
+  font-style:normal;
+  background:linear-gradient(90deg,#818CF8,#F472B6);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.logo-kr{font-family:var(--kr);font-size:7.5pt;color:rgba(255,255,255,.3);margin-top:1px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nl{font-size:9pt;font-weight:600;color:rgba(255,255,255,.5);padding:6px 14px;border-radius:8px;transition:all .15s}
+.nl:hover{background:rgba(255,255,255,.08);color:white}
+.nl.cta{background:linear-gradient(135deg,var(--indigo),var(--pink));color:white;margin-left:6px}
+.nl.cta:hover{opacity:.9}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.hero{
+  background:var(--dark);
+  padding:88px 40px 96px;
+  text-align:center;position:relative;overflow:hidden;
+}
+.orb{position:absolute;border-radius:50%;pointer-events:none}
+.orb1{width:560px;height:560px;background:radial-gradient(circle,rgba(79,70,229,.38) 0%,transparent 70%);top:-180px;left:-80px}
+.orb2{width:480px;height:480px;background:radial-gradient(circle,rgba(236,72,153,.32) 0%,transparent 70%);top:-120px;right:-60px}
+.orb3{width:380px;height:380px;background:radial-gradient(circle,rgba(124,58,237,.22) 0%,transparent 70%);bottom:-160px;left:50%;transform:translateX(-50%)}
+.hero-inner{position:relative;z-index:1}
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.35);
+  color:#A5B4FC;border-radius:20px;
+  padding:6px 16px;font-size:8.5pt;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  margin-bottom:28px;
+}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--indigo-mid);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero-h1{
+  font-family:var(--head);
+  font-size:54pt;font-weight:700;color:white;
+  line-height:1.0;letter-spacing:-2.5px;margin-bottom:14px;
+}
+.g1{background:linear-gradient(135deg,#818CF8 0%,#F472B6 50%,#FB923C 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-kr{font-family:var(--kr);font-size:12pt;color:rgba(255,255,255,.28);margin-bottom:22px;letter-spacing:.03em}
+.hero-sub{font-size:12pt;color:rgba(255,255,255,.58);max-width:490px;margin:0 auto 36px;line-height:1.75}
+.hero-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:10pt;border-radius:12px;padding:13px 26px;cursor:pointer;border:none;transition:all .2s}
+.btn-g{background:linear-gradient(135deg,var(--indigo),var(--pink));color:white;box-shadow:0 4px 20px rgba(79,70,229,.4)}
+.btn-g:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(79,70,229,.5)}
+.btn-o{background:rgba(255,255,255,.07);color:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.14)}
+.btn-o:hover{background:rgba(255,255,255,.11);transform:translateY(-2px)}
+/* Floating tags */
+.hero-tags{display:flex;justify-content:center;gap:10px;margin-top:40px;flex-wrap:wrap}
+.htag{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:6px 14px;
+  font-size:9pt;font-weight:600;color:rgba(255,255,255,.55);
+}
+/* Stats bar */
+.stats{display:flex;justify-content:center;margin-top:52px;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap}
+.stat{padding:24px 44px;border-right:1px solid rgba(255,255,255,.07);flex:1;min-width:120px;text-align:center}
+.stat:last-child{border-right:none}
+.stat-n{
+  font-family:var(--head);font-size:28pt;font-weight:700;
+  background:linear-gradient(135deg,#818CF8,#F472B6);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-l{font-size:9pt;color:rgba(255,255,255,.38);margin-top:2px}
+
+/* ── TICKER ───────────────────────────────────────────── */
+.ticker{background:linear-gradient(90deg,var(--indigo),var(--violet),var(--pink),var(--coral));padding:13px 0;overflow:hidden}
+.ticker-track{display:flex;animation:scroll 24s linear infinite;width:max-content}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ti{display:flex;align-items:center;gap:12px;padding:0 22px;white-space:nowrap;font-size:9.5pt;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.02em}
+.td{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);flex-shrink:0}
+
+/* ── SHARED SECTION ───────────────────────────────────── */
+.wrap{max-width:1080px;margin:0 auto;padding:0 40px}
+.sec{padding:72px 0}
+.ey{font-size:8pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.ey-line{width:20px;height:2px;border-radius:1px;display:inline-block}
+.sh{font-family:var(--head);font-size:28pt;font-weight:700;line-height:1.15;letter-spacing:-1px;margin-bottom:8px}
+.ss{font-size:11pt;color:var(--mid);margin-bottom:40px;max-width:540px}
+
+/* ── STRUCTURE (dark bg) ──────────────────────────────── */
+.dark-sec{background:var(--dark2)}
+.dark-sec .sh,.dark-sec .ss{color:white}
+.dark-sec .ss{color:rgba(255,255,255,.45)}
+
+.sec8{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:36px}
+.sc{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:18px 16px;
+  transition:background .2s,border-color .2s;
+}
+.sc:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16)}
+.sc-emo{font-size:20pt;margin-bottom:10px}
+.sc-n{font-size:7.5pt;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.28);margin-bottom:4px;text-transform:uppercase}
+.sc-name{font-weight:700;font-size:10pt;color:white;margin-bottom:4px}
+.sc-desc{font-size:8.5pt;color:rgba(255,255,255,.42);line-height:1.5}
+.sc-t{display:inline-block;margin-top:8px;font-size:7.5pt;font-weight:700;padding:2px 8px;border-radius:8px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.45)}
+
+.how4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.hc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 18px}
+.hc-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10pt;color:white;margin-bottom:12px}
+.hc-t{font-weight:700;font-size:10pt;color:white;margin-bottom:5px}
+.hc-d{font-size:8.5pt;color:rgba(255,255,255,.42);line-height:1.6}
+
+/* ── UNITS ────────────────────────────────────────────── */
+.prow{display:flex;align-items:center;gap:14px;margin:40px 0 18px}
+.prow:first-of-type{margin-top:0}
+.ppill{font-size:8.5pt;font-weight:700;letter-spacing:.04em;padding:5px 14px;border-radius:20px;white-space:nowrap}
+.pline{flex:1;height:1px;background:var(--border)}
+
+.ug{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:8px}
+.uc{
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:16px;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .2s,box-shadow .2s;
+}
+.uc.live:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.1);cursor:pointer}
+.uc-bar{height:4px;width:100%}
+.uc-body{padding:18px 18px 14px;flex:1}
+.uc-num{font-size:7.5pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.uc-title{font-family:var(--head);font-weight:700;font-size:11pt;color:var(--dark);margin-bottom:7px;line-height:1.3}
+.uc-desc{font-size:9pt;color:var(--mid);line-height:1.6}
+.uc-foot{padding:11px 18px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
+.bl{font-size:7.5pt;font-weight:700;padding:3px 10px;border-radius:10px}
+.bl-live{background:#ECFDF5;color:#059669}
+.bl-soon{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+.ul-open{font-size:8.5pt;font-weight:700;display:flex;align-items:center;gap:4px}
+.ul-open.live{color:var(--indigo)}
+.ul-open.soon{color:var(--muted);pointer-events:none}
+.uc.dim .uc-body{opacity:.58}
+.uc.dim .uc-bar{opacity:.45}
+
+/* ── WHY ──────────────────────────────────────────────── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wc{
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--bg);border:1.5px solid var(--border);
+  border-radius:14px;padding:16px 18px;
+  transition:border-color .2s,transform .2s;
+}
+.wc:hover{border-color:var(--indigo-mid);transform:translateY(-2px)}
+.wc-icon{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18pt}
+.wc-t{font-weight:700;font-size:10pt;color:var(--dark);margin-bottom:3px}
+.wc-d{font-size:9pt;color:var(--mid);line-height:1.6}
+
+/* ── CTA ──────────────────────────────────────────────── */
+.cta-wrap{padding:72px 0;background:var(--bg)}
+.cta-box{
+  background:var(--dark);border-radius:24px;padding:56px 48px;
+  text-align:center;position:relative;overflow:hidden;
+  border:1px solid rgba(255,255,255,.06);
+}
+.co1{position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(79,70,229,.42) 0%,transparent 70%);top:-160px;left:-80px;pointer-events:none}
+.co2{position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(236,72,153,.36) 0%,transparent 70%);bottom:-130px;right:-60px;pointer-events:none}
+.cta-inner{position:relative;z-index:1}
+.cta-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);
+  color:#A5B4FC;border-radius:20px;padding:5px 14px;
+  font-size:8pt;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:20px;
+}
+.cta-h{font-family:var(--head);font-size:28pt;font-weight:700;color:white;letter-spacing:-1px;margin-bottom:10px}
+.cta-h .g{background:linear-gradient(90deg,#818CF8,#F472B6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cta-sub{font-size:11pt;color:rgba(255,255,255,.52);margin-bottom:28px;line-height:1.7}
+.cta-form{display:flex;gap:10px;justify-content:center;max-width:440px;margin:0 auto;flex-wrap:wrap}
+.cta-in{
+  flex:1;min-width:200px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+  color:white;border-radius:12px;padding:13px 18px;
+  font-size:10pt;font-family:var(--body);outline:none;transition:border-color .2s;
+}
+.cta-in::placeholder{color:rgba(255,255,255,.28)}
+.cta-in:focus{border-color:rgba(99,102,241,.65)}
+.cta-note{font-size:8.5pt;color:rgba(255,255,255,.28);margin-top:14px}
+
+/* ── FOOTER ───────────────────────────────────────────── */
+footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding:28px 40px}
+.fi{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.fl{display:flex;align-items:center;gap:10px}
+.flm{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--indigo),var(--pink));display:flex;align-items:center;justify-content:center;font-family:var(--head);font-weight:700;font-size:11pt;color:white}
+.fln{font-family:var(--head);font-weight:700;font-size:10.5pt;color:white}
+.fln em{font-style:normal;background:linear-gradient(90deg,var(--indigo-mid),var(--pink-mid));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.fc{font-size:8.5pt;color:rgba(255,255,255,.28);margin-top:3px}
+.fkr{font-family:var(--kr);font-size:8pt;color:rgba(255,255,255,.18);margin-top:2px}
+.flinks{display:flex;gap:20px}
+.flink{font-size:9pt;color:rgba(255,255,255,.32);transition:color .15s}
+.flink:hover{color:white}
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media(max-width:768px){
+  .hero-h1{font-size:30pt;letter-spacing:-1px}
+  .sec8{grid-template-columns:1fr 1fr}
+  .how4{grid-template-columns:1fr 1fr}
+  .ug{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  nav{padding:0 20px}
+  .wrap{padding:0 20px}
+  .sec{padding:48px 0}
+  .hero{padding:60px 20px 72px}
+  .stat{padding:20px 20px}
+  .cta-box{padding:36px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-mark">S</div>
+    <div>
+      <div class="logo-name">Sunny<em>'sideup</em> English</div>
+      <div class="logo-kr">진짜 영어, 매주 새 유닛</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#units" class="nl">Units</a>
+    <a href="#structure" class="nl">How It Works</a>
+    <a href="#why" class="nl">Why It Works</a>
+    <a href="#newsletter" class="nl cta">Stay Updated &#8594;</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-inner">
+    <div class="pill"><span class="pill-dot"></span>New unit every week</div>
+    <h1 class="hero-h1">
+      English that actually<br/>
+      <span class="g1">sounds like you.</span>
+    </h1>
+    <div class="hero-kr">교과서 말고 — 진짜 영어로</div>
+    <p class="hero-sub">A speaking class for Korean adults who are done with textbook lines and ready to talk the way real people do — at cafés, schools, restaurants, and everywhere in between.</p>
+    <div class="hero-btns">
+      <a href="#units" class="btn btn-g">&#128218;&nbsp; Browse all units</a>
+      <a href="#structure" class="btn btn-o">&#9889;&nbsp; How it works</a>
+    </div>
+    <div class="hero-tags">
+      <div class="htag">&#128293; YouTube-tutor energy</div>
+      <div class="htag">&#128683; Konglish detox built in</div>
+      <div class="htag">&#127974; Print-ready A4 PDF</div>
+      <div class="htag" style="font-family:var(--kr)">&#10024; 매주 업데이트</div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">15</div><div class="stat-l">Total units</div></div>
+      <div class="stat"><div class="stat-n">8</div><div class="stat-l">Sections per unit</div></div>
+      <div class="stat"><div class="stat-n">2h</div><div class="stat-l">Class length</div></div>
+      <div class="stat"><div class="stat-n">0</div><div class="stat-l">Boring textbook lines</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TICKER ══════════════════════════════════════════ -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ti"><span class="td"></span>Dining Out</span>
+    <span class="ti"><span class="td"></span>Coffee Shop Small Talk</span>
+    <span class="ti"><span class="td"></span>School Events</span>
+    <span class="ti"><span class="td"></span>Shopping</span>
+    <span class="ti"><span class="td"></span>Doctor's Appointment</span>
+    <span class="ti"><span class="td"></span>Making Plans</span>
+    <span class="ti"><span class="td"></span>Telling Stories</span>
+    <span class="ti"><span class="td"></span>Hot Takes</span>
+    <span class="ti"><span class="td"></span>Konglish Detox</span>
+    <span class="ti"><span class="td"></span>No Cap Quiz</span>
+    <span class="ti"><span class="td"></span>Steal This Line</span>
+    <span class="ti"><span class="td"></span>Real-World English</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ti"><span class="td"></span>Dining Out</span>
+    <span class="ti"><span class="td"></span>Coffee Shop Small Talk</span>
+    <span class="ti"><span class="td"></span>School Events</span>
+    <span class="ti"><span class="td"></span>Shopping</span>
+    <span class="ti"><span class="td"></span>Doctor's Appointment</span>
+    <span class="ti"><span class="td"></span>Making Plans</span>
+    <span class="ti"><span class="td"></span>Telling Stories</span>
+    <span class="ti"><span class="td"></span>Hot Takes</span>
+    <span class="ti"><span class="td"></span>Konglish Detox</span>
+    <span class="ti"><span class="td"></span>No Cap Quiz</span>
+    <span class="ti"><span class="td"></span>Steal This Line</span>
+    <span class="ti"><span class="td"></span>Real-World English</span>
+  </div>
+</div>
+
+<!-- ═══ HOW IT WORKS ════════════════════════════════════ -->
+<div class="dark-sec" id="structure">
+<div class="wrap"><div class="sec">
+  <div class="ey" style="color:#818CF8"><span class="ey-line" style="background:#818CF8"></span>Every unit. Every week.</div>
+  <h2 class="sh">8 sections. 2 hours.<br/><span style="background:linear-gradient(90deg,#818CF8,#F472B6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Zero boredom.</span></h2>
+  <p class="ss">Every unit follows the same structure so you always know what's coming — but the content is always fresh, always real.</p>
+
+  <div class="sec8">
+    <div class="sc"><div class="sc-emo">&#128293;</div><div class="sc-n">01</div><div class="sc-name">Let's Vibe</div><div class="sc-desc">Ice breaker — get mouths moving before anything else</div><div class="sc-t">~5 min</div></div>
+    <div class="sc"><div class="sc-emo">&#9889;</div><div class="sc-n">02</div><div class="sc-name">Grammar Drop</div><div class="sc-desc">One grammar point, explained like a YouTube tutor</div><div class="sc-t">~15 min</div></div>
+    <div class="sc"><div class="sc-emo">&#127917;</div><div class="sc-n">03</div><div class="sc-name">Main Character Energy</div><div class="sc-desc">Real dialogues + 5 role-play scenario cards</div><div class="sc-t">~20 min</div></div>
+    <div class="sc"><div class="sc-emo">&#128250;</div><div class="sc-n">04</div><div class="sc-name">Vibe Check</div><div class="sc-desc">YouTube rec — watch, listen, shadow one line</div><div class="sc-t">~10 min</div></div>
+    <div class="sc"><div class="sc-emo">&#128683;</div><div class="sc-n">05</div><div class="sc-name">Unlearn This</div><div class="sc-desc">Konglish detox — native vs. learner, side by side</div><div class="sc-t">~10 min</div></div>
+    <div class="sc"><div class="sc-emo">&#127798;&#65039;</div><div class="sc-n">06</div><div class="sc-name">Hot Take</div><div class="sc-desc">One debatable statement — agree or disagree, say why</div><div class="sc-t">~10 min</div></div>
+    <div class="sc"><div class="sc-emo">&#128221;</div><div class="sc-n">07</div><div class="sc-name">No Cap Quiz</div><div class="sc-desc">5 snappy questions + one trick question every time</div><div class="sc-t">~10 min</div></div>
+    <div class="sc"><div class="sc-emo">&#10024;</div><div class="sc-n">08</div><div class="sc-name">Steal This Line</div><div class="sc-desc">One killer phrase — write it, say it, use it this week</div><div class="sc-t">~5 min</div></div>
+  </div>
+
+  <div class="how4">
+    <div class="hc"><div class="hc-num" style="background:linear-gradient(135deg,var(--indigo),var(--violet))">1</div><div class="hc-t">Real situations</div><div class="hc-d">Every unit is built around something you actually do — eating out, school, shopping, small talk.</div></div>
+    <div class="hc"><div class="hc-num" style="background:linear-gradient(135deg,var(--pink),var(--coral))">2</div><div class="hc-t">Native-level dialogue</div><div class="hc-d">All scripts use contractions, fillers, and real rhythm. Not textbook lines.</div></div>
+    <div class="hc"><div class="hc-num" style="background:linear-gradient(135deg,var(--cyan),var(--indigo))">3</div><div class="hc-t">Korean explained</div><div class="hc-d">Grammar explained in Korean so nothing gets lost in translation.</div></div>
+    <div class="hc"><div class="hc-num" style="background:linear-gradient(135deg,var(--lime),var(--cyan))">4</div><div class="hc-t">Print &amp; go</div><div class="hc-d">Open in Chrome, print A4, bring to class. No app. No login. Just go.</div></div>
+  </div>
+</div></div>
+</div>
+
+<!-- ═══ UNITS ════════════════════════════════════════════ -->
+<div style="background:var(--bg)" id="units">
+<div class="wrap"><div class="sec">
+  <div class="ey" style="color:var(--indigo)"><span class="ey-line" style="background:var(--indigo)"></span>Course content</div>
+  <h2 class="sh">All 15 units</h2>
+  <p class="ss">Three parts. Real life from every angle. New units drop weekly.</p>
+
+  <!-- Part 1 -->
+  <div class="prow">
+    <div class="ppill" style="background:var(--indigo-light);color:var(--indigo)">&#127758;&nbsp; Part 1 — Out in the World</div>
+    <div class="pline"></div>
+  </div>
+  <div class="ug">
+    <div class="uc live">
+      <div class="uc-bar" style="background:linear-gradient(90deg,var(--indigo),var(--pink))"></div>
+      <div class="uc-body"><div class="uc-num" style="color:var(--indigo)">Unit 01 &middot; Dining Out</div><div class="uc-title">Dining Out at a Restaurant</div><div class="uc-desc">Arrive, order like a local, handle split bills, wrong orders — all of it.</div></div>
+      <div class="uc-foot"><span class="bl bl-live">&#9679; Live</span><a href="Unit1_DiningOut_Demo.html" class="ul-open live">Open unit &#8594;</a></div>
+    </div>
+    <div class="uc live">
+      <div class="uc-bar" style="background:linear-gradient(90deg,var(--violet),var(--cyan))"></div>
+      <div class="uc-body"><div class="uc-num" style="color:var(--violet)">Unit 02 &middot; Coffee Shop</div><div class="uc-title">Coffee Shop &amp; Small Talk</div><div class="uc-desc">Order confidently, keep a conversation going, talk movies and shows.</div></div>
+      <div class="uc-foot"><span class="bl bl-live">&#9679; Live</span><a href="Unit2_CoffeeShop_SmallTalk.html" class="ul-open live">Open unit &#8594;</a></div>
+    </div>
+    <div class="uc live">
+      <div class="uc-bar" style="background:linear-gradient(90deg,var(--green),var(--cyan))"></div>
+      <div class="uc-body"><div class="uc-num" style="color:var(--green)">Unit 03 &middot; School</div><div class="uc-title">Your Child's Teacher &amp; School</div><div class="uc-desc">Parent-teacher talks, volunteering, International Day — all the school English you actually need.</div></div>
+      <div class="uc-foot"><span class="bl bl-live">&#9679; Live</span><a href="Unit3_School_Teacher.html" class="ul-open live">Open unit &#8594;</a></div>
+    </div>
+    <div class="uc dim">
+      <div class="uc-bar" style="background:linear-gradient(90deg,var(--amber),var(--coral))"></div>
+      <div class="uc-body"><div class="uc-num" style="color:var(--amber)">Unit 04 &middot; Shopping</div><div class="uc-title">Shopping — Clothes, Returns &amp; Sales</div><div class="uc-desc">Try things on, handle returns, navigate a sale without losing your mind.</div></div>
+      <div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div>
+    </div>
+    <div class="uc dim">
+      <div class="uc-bar" style="background:linear-gradient(90deg,var(--pink),var(--violet))"></div>
+      <div class="uc-body"><div class="uc-num" style="color:var(--pink)">Unit 05 &middot; Getting Around</div><div class="uc-title">Getting Around — Transport &amp; Directions</div><div class="uc-desc">GPS, buses, taxis, and what to do when you're totally lost.</div></div>
+      <div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div>
+    </div>
+  </div>
+
+  <!-- Part 2 -->
+  <div class="prow">
+    <div class="ppill" style="background:var(--violet-light);color:var(--violet)">&#127968;&nbsp; Part 2 — Home &amp; Family Life</div>
+    <div class="pline"></div>
+  </div>
+  <div class="ug">
+    <div class="uc dim"><div class="uc-bar" style="background:linear-gradient(90deg,var(--violet),var(--pink))"></div><div class="uc-body"><div class="uc-num" style="color:var(--violet)">Unit 06 &middot; Neighbors</div><div class="uc-title">Neighbors &amp; Other Parents</div><div class="uc-desc">School gate chat, playdates, casual community English.</div></div><div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div></div>
+    <div class="uc dim"><div class="uc-bar" style="background:linear-gradient(90deg,var(--pink),var(--coral))"></div><div class="uc-body"><div class="uc-num" style="color:var(--pink)">Unit 07 &middot; Making Plans</div><div class="uc-title">Making &amp; Declining Plans</div><div class="uc-desc">Say yes enthusiastically, say no gracefully, reschedule without awkwardness.</div></div><div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div></div>
+    <div class="uc dim"><div class="uc-bar" style="background:linear-gradient(90deg,var(--cyan),var(--indigo))"></div><div class="uc-body"><div class="uc-num" style="color:var(--cyan)">Unit 08 &middot; Health</div><div class="uc-title">Health &amp; Wellness Conversations</div><div class="uc-desc">Describe how you feel, talk about health naturally, ask the right questions.</div></div><div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div></div>
+    <div class="uc dim"><div class="uc-bar" style="background:linear-gradient(90deg,var(--green),var(--lime))"></div><div class="uc-body"><div class="uc-num" style="color:var(--green)">Unit 09 &middot; Doctor</div><div class="uc-title">Doctor's Appointment &amp; Pharmacy</div><div class="uc-desc">Explain symptoms, ask the right questions, understand what the doctor says.</div></div><div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div></div>
+    <div class="uc dim"><div class="uc-bar" style="background:linear-gradient(90deg,var(--amber),var(--green))"></div><div class="uc-body"><div class="uc-num" style="color:var(--amber)">Unit 10 &middot; About You</div><div class="uc-title">Talking About Yourself &amp; Your Life</div><div class="uc-desc">Introduce yourself beyond "Hi, I'm from Korea." Your story, in English.</div></div><div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div></div>
+  </div>
+
+  <!-- Part 3 -->
+  <div class="prow">
+    <div class="ppill" style="background:var(--coral-light);color:var(--coral)">&#128172;&nbsp; Part 3 — Speaking Your Mind</div>
+    <div class="pline"></div>
+  </div>
+  <div class="ug">
+    <div class="uc dim"><div class="uc-bar" style="background:linear-gradient(90deg,var(--coral),var(--pink))"></div><div class="uc-body"><div class="uc-num" style="color:var(--coral)">Unit 11 &middot; Opinions</div><div class="uc-title">Opinions &amp; Agreeing / Disagreeing</div><div class="uc-desc">Share your view, push back politely, hold your ground without sounding aggressive.</div></div><div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div></div>
+    <div class="uc dim"><div class="uc-bar" style="background:linear-gradient(90deg,var(--indigo),var(--cyan))"></div><div class="uc-body"><div class="uc-num" style="color:var(--indigo)">Unit 12 &middot; Compliments</div><div class="uc-title">Compliments &amp; Awkward Moments</div><div class="uc-desc">Give compliments naturally, receive them without deflecting, handle cringe moments.</div></div><div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div></div>
+    <div class="uc dim"><div class="uc-bar" style="background:linear-gradient(90deg,var(--violet),var(--pink))"></div><div class="uc-body"><div class="uc-num" style="color:var(--violet)">Unit 13 &middot; Humor</div><div class="uc-title">Humor, Idioms &amp; Casual Speech</div><div class="uc-desc">Idioms, jokes, and casual phrases that make you sound actually fluent.</div></div><div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div></div>
+    <div class="uc dim"><div class="uc-bar" style="background:linear-gradient(90deg,var(--pink),var(--amber))"></div><div class="uc-body"><div class="uc-num" style="color:var(--pink)">Unit 14 &middot; Phone &amp; Text</div><div class="uc-title">Phone Calls &amp; Texting Etiquette</div><div class="uc-desc">Call a plumber, leave a voicemail, write a text that doesn't sound weird.</div></div><div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div></div>
+    <div class="uc dim"><div class="uc-bar" style="background:linear-gradient(90deg,var(--cyan),var(--lime))"></div><div class="uc-body"><div class="uc-num" style="color:var(--cyan)">Unit 15 &middot; Storytelling</div><div class="uc-title">Telling Stories &amp; Anecdotes</div><div class="uc-desc">Keep people engaged, build to a punchline, and tell a story that lands every time.</div></div><div class="uc-foot"><span class="bl bl-soon">Coming soon</span><span class="ul-open soon">Not yet available</span></div></div>
+  </div>
+</div></div>
+</div>
+
+<!-- ═══ WHY IT WORKS ════════════════════════════════════ -->
+<div style="background:var(--white)" id="why">
+<div class="wrap"><div class="sec">
+  <div class="ey" style="color:var(--pink)"><span class="ey-line" style="background:var(--pink)"></span>Why it works</div>
+  <h2 class="sh">Not textbook English.<br/><span style="background:linear-gradient(90deg,var(--indigo),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Today's real English.</span></h2>
+  <p class="ss">Most English classes teach you to be grammatically correct. This class teaches you to sound <em>natural</em> — the way people actually speak on YouTube, at Starbucks, and at your kid's school.</p>
+  <div class="why-grid">
+    <div class="wc"><div class="wc-icon" style="background:var(--indigo-light)">&#128172;</div><div><div class="wc-t">Real conversation skills</div><div class="wc-d">Not "repeat after me" — actual back-and-forth dialogue practice with role-play cards</div></div></div>
+    <div class="wc"><div class="wc-icon" style="background:var(--violet-light)">&#9889;</div><div><div class="wc-t">Practical grammar</div><div class="wc-d">One point per unit, explained in Korean, with examples that actually feel alive</div></div></div>
+    <div class="wc"><div class="wc-icon" style="background:var(--coral-light)">&#128683;</div><div><div class="wc-t">Konglish detox</div><div class="wc-d">Side-by-side every unit: what you say vs. what natives actually say</div></div></div>
+    <div class="wc"><div class="wc-icon" style="background:var(--amber-light)">&#127758;</div><div><div class="wc-t">Cultural context</div><div class="wc-d">The US/UK customs that explain why English works the way it does</div></div></div>
+    <div class="wc"><div class="wc-icon" style="background:var(--green-light)">&#127917;</div><div><div class="wc-t">Role-play confidence</div><div class="wc-d">5 scenario cards per unit — improvise, don't memorize</div></div></div>
+    <div class="wc"><div class="wc-icon" style="background:var(--pink-light)">&#10024;</div><div><div class="wc-t">One phrase per week</div><div class="wc-d">Steal This Line — one killer phrase to actually use before next class</div></div></div>
+  </div>
+</div></div>
+</div>
+
+<!-- ═══ CTA / NEWSLETTER ════════════════════════════════ -->
+<div class="cta-wrap" id="newsletter">
+<div class="wrap">
+  <div class="cta-box">
+    <div class="co1"></div><div class="co2"></div>
+    <div class="cta-inner">
+      <div class="cta-tag">&#128293;&nbsp; New unit every week</div>
+      <h2 class="cta-h">Don't miss the next<br/><span class="g">unit drop.</span></h2>
+      <p class="cta-sub">Drop your email and I'll let you know when a new unit goes live.<br/><span style="font-family:var(--kr);font-size:10pt">새 유닛이 나올 때마다 알려드릴게요 &#128140;</span></p>
+      <div class="cta-form">
+        <input class="cta-in" type="email" placeholder="your@email.com"/>
+        <button class="btn btn-g" onclick="subscribe(this)">Notify me &nbsp;&#8594;</button>
+      </div>
+      <p class="cta-note">No spam. Just a heads-up when new content drops.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <div class="fi">
+    <div>
+      <div class="fl">
+        <div class="flm">S</div>
+        <div class="fln">Sunny<em>'sideup</em> English</div>
+      </div>
+      <div class="fc" style="margin-top:6px">&#169; 2025 Sunny'sideup English</div>
+      <div class="fkr">진짜 영어, 매주 새 유닛</div>
+    </div>
+    <div class="flinks">
+      <a href="#units" class="flink">Units</a>
+      <a href="#structure" class="flink">How it works</a>
+      <a href="#why" class="flink">Why it works</a>
+      <a href="#newsletter" class="flink">Stay updated</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function subscribe(btn){
+  const inp=btn.previousElementSibling;
+  if(!inp.value||!inp.value.includes('@')){
+    inp.style.borderColor='rgba(236,72,153,.7)';
+    inp.placeholder='Enter a valid email!';
+    setTimeout(()=>{inp.style.borderColor='';inp.placeholder='your@email.com'},2000);
+    return;
+  }
+  btn.innerHTML='&#10024; You\'re in!';
+  btn.style.background='linear-gradient(135deg,#10B981,#06B6D4)';
+  btn.disabled=true;
+  inp.disabled=true;
+  inp.style.opacity='.4';
+}
+</script>
+</body>
+</html>
