@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borahae Education - Fraction Magic Reels</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Schoolbell&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --board-bg: #11251d;
+            --chalk-yellow: #fff176;
+            --chalk-pink: #ff80ab;
+            --chalk-cyan: #4fc3f7;
+            --chalk-white: #ffffff;
+            --wood-border: #4e2e18;
+            --wood-shadow: #2a180b;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: #1a1a1e;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            font-family: 'Patrick Hand', 'Schoolbell', cursive;
+            overflow: hidden;
+        }
+
+        /* 9:16 세로형 모바일 레이아웃 (Reels / Shorts) */
+        .chalkboard-container {
+            width: 100%;
+            max-width: 390px;
+            aspect-ratio: 9/16;
+            background-color: var(--board-bg);
+            border: 15px solid var(--wood-border);
+            border-radius: 20px;
+            box-shadow: 
+                inset 0 0 50px rgba(0, 0, 0, 0.9), 
+                0 15px 30px rgba(0,0,0,0.8),
+                0 0 0 4px var(--wood-shadow);
+            position: relative;
+            padding: 20px 15px 40px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        /* 칠판의 빈티지 분필 가루 효과 백그라운드 */
+        .chalkboard-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 80%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .board-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* 크고 또렷한 칠판 손글씨 타이포그래피 */
+        h1 {
+            font-family: 'Schoolbell', cursive;
+            color: var(--chalk-yellow);
+            font-size: 38px;
+            line-height: 1.15;
+            margin: 0 0 10px 0;
+            text-align: center;
+            text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.7);
+            letter-spacing: 0.5px;
+        }
+
+        p, li, span, div {
+            color: var(--chalk-white);
+            font-size: 28px;
+            line-height: 1.3;
+            text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.7);
+        }
+
+        /* 분필 색상 클래스 */
+        .chalk-white { 
+            color: var(--chalk-white) !important; 
+            text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.7) !important;
+        }
+        .chalk-yellow { 
+            color: var(--chalk-yellow) !important; 
+            text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.7) !important;
+        }
+        .chalk-pink { 
+            color: var(--chalk-pink) !important; 
+            text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.7) !important;
+        }
+        .chalk-blue { 
+            color: var(--chalk-cyan) !important; 
+            text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.7) !important;
+        }
+
+        /* 워크스페이스 배치 */
+        .slide-workspace {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            margin: 5px 0;
+            width: 100%;
+        }
+
+        .box-yellow {
+            border: 3px dashed var(--chalk-yellow);
+            border-radius: 18px;
+            padding: 12px;
+            background: rgba(255, 241, 118, 0.02);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .box-pink {
+            border: 3.5px double var(--chalk-pink);
+            border-radius: 18px;
+            padding: 12px;
+            background: rgba(255, 128, 171, 0.02);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        /* 손글씨 스타일 분수 이미지 컨테이너 */
+        .fraction-img-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            margin: 0 4px;
+        }
+
+        /* 고정 선명도를 위한 SVG 벡터 섀도우 필터 */
+        .fraction-svg {
+            overflow: visible;
+            filter: drop-shadow(1.5px 1.5px 1px rgba(0,0,0,0.8));
+        }
+
+        /* 파이 차트 모형 */
+        .split-circle {
+            width: 190px;
+            height: 190px; 
+            border-radius: 50%;
+            background: linear-gradient(to right, #ffd54f 50%, #1565c0 50%);
+            position: relative;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            border: 4px solid var(--chalk-white);
+            margin: 15px 0;
+            filter: drop-shadow(0 0 3px rgba(255,255,255,0.3));
+        }
+
+        .circle-half-label {
+            font-family: 'Schoolbell', monospace;
+            font-size: 32px; 
+            color: #ffffff;
+            text-shadow: 2px 2px 2px rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 분필 홀더 디자인 */
+        .chalk-tray {
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            background: #3e2723;
+            padding: 4px 25px;
+            border-radius: 8px 8px 0 0;
+            border: 2px solid #2d1b18;
+            z-index: 10;
+            box-shadow: 0 -3px 8px rgba(0,0,0,0.5);
+        }
+
+        .chalk-piece {
+            width: 50px;
+            height: 12px;
+            border-radius: 3px;
+            box-shadow: inset -2px -2px 4px rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .chalk-piece:hover {
+            transform: translateY(-4px);
+        }
+
+        .cp-white { background-color: #f5f5f5; border-bottom: 1px solid #ccc; }
+        .cp-blue { background-color: #80deea; border-bottom: 1px solid #4fc3f7; }
+
+        .navigation-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+            border-top: 2.5px dashed rgba(255,255,255,0.15);
+            padding-top: 8px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.05);
+            border: 2.5px solid var(--chalk-white);
+            color: var(--chalk-white);
+            font-family: 'Schoolbell', cursive;
+            padding: 4px 14px;
+            font-size: 21px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+
+        .nav-btn:hover {
+            background: var(--chalk-yellow);
+            color: var(--board-bg);
+            border-color: var(--chalk-yellow);
+        }
+
+        .source-badge {
+            font-size: 15px;
+            color: var(--chalk-pink);
+            border: 1.5px dashed var(--chalk-pink);
+            padding: 1px 8px;
+            border-radius: 8px;
+            font-family: 'Schoolbell', cursive;
+            text-shadow: none;
+        }
+
+        .page-badge {
+            font-family: 'Schoolbell', cursive;
+            background: rgba(255, 241, 118, 0.1);
+            border: 2px dashed var(--chalk-yellow);
+            color: var(--chalk-yellow);
+            padding: 1px 8px;
+            border-radius: 20px;
+            font-size: 15px;
+            text-shadow: none;
+        }
+
+        /* 수식 세로 목록 */
+        .math-column-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        .math-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            font-family: 'Schoolbell', cursive;
+            font-size: 34px;
+            text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.7);
+        }
+
+        .arrow-indicator {
+            color: var(--chalk-pink);
+            font-size: 32px;
+            filter: drop-shadow(1px 1px 0px rgba(0,0,0,0.5));
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chalkboard-container">
+        <div class="board-content">
+            
+            <!-- ================= SLIDE 1: INTRO / HOOK ================= -->
+            <div class="slide active" id="slide-1">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px dashed var(--chalk-blue); padding-bottom: 5px;">
+                    <span class="source-badge"><i class="fa-solid fa-star"></i> Borahae Education</span>
+                    <span class="page-badge">1/8</span>
+                </div>
+
+                <div class="slide-workspace" style="text-align: center; gap: 20px;">
+                    <p class="chalk-yellow" style="font-size: 36px; line-height: 1.3; font-weight: bold; font-family: 'Schoolbell', cursive;">
+                        Your kids might be a prodigy, you just don't know it! 💡
+                    </p>
+                    <div class="box-pink" style="margin-top: 10px;">
+                        <p style="font-size: 28px; line-height: 1.35; text-align: center; margin: 0;">
+                            Show this simple question to your kids right now and test them! 👇
+                        </p>
+                    </div>
+                    <p class="chalk-blue" style="font-size: 22px; margin-top: 10px;">
+                        <i class="fa-solid fa-circle-down"></i> Swipe next to begin the test!
+                    </p>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 2: THE HOOK PROBLEM ================= -->
+            <div class="slide" id="slide-2">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px dashed var(--chalk-blue); padding-bottom: 5px;">
+                    <span class="source-badge"><i class="fa-solid fa-star"></i> Borahae Education</span>
+                    <span class="page-badge">2/8</span>
+                </div>
+
+                <div class="slide-workspace" style="gap: 15px;">
+                    <h1 style="font-size: 38px; color: var(--chalk-yellow); text-align: center; margin-bottom: 2px;">Fraction Division Confusion 🤯</h1>
+                    <p class="chalk-pink" style="text-align: center; font-size: 26px; margin: 0; font-family: 'Schoolbell', cursive;">The Division Trap</p>
+                    
+                    <div class="box-pink" style="text-align: center; margin: 10px 0;">
+                        <!-- 한 줄 강제 정렬 및 폰트 축소로 절대 깨지지 않는 영역 -->
+                        <div style="font-size: 24px; display: flex; align-items: center; justify-content: center; gap: 4px; font-family: 'Schoolbell', cursive; white-space: nowrap;">
+                            Ask them: What is <span class="chalk-yellow" style="font-weight: bold; margin-left: 2px;">1 ÷</span>
+                            <div class="fraction-img-container">
+                                <svg class="fraction-svg" viewBox="0 0 30 46" width="24" height="36" style="fill: currentColor; stroke: currentColor; color: var(--chalk-yellow);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                            </div>
+                            <span class="chalk-yellow" style="font-weight: bold;">?</span>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.02); border: 2.5px dashed var(--chalk-white); border-radius: 14px; padding: 12px; text-align: center; width: 100%;">
+                        <p style="font-size: 25px; line-height: 1.35; margin: 0;">
+                            Many kids will immediately say <span class="chalk-pink" style="font-weight: bold;">0.5</span> because they think division always makes numbers smaller!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 3: CONCEPTUAL WHY ================= -->
+            <div class="slide" id="slide-3">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px dashed var(--chalk-blue); padding-bottom: 5px;">
+                    <span class="source-badge"><i class="fa-solid fa-star"></i> Borahae Education</span>
+                    <span class="page-badge">3/8</span>
+                </div>
+
+                <div class="slide-workspace" style="gap: 15px;">
+                    <h1 style="font-size: 38px;">The Slice Concept 🍕</h1>
+                    <p class="chalk-pink" style="text-align: center; font-size: 26px; margin: 0; font-family: 'Schoolbell', cursive;">Understanding Fractions</p>
+
+                    <div class="box-yellow" style="margin-top: 10px;">
+                        <p class="chalk-blue" style="font-size: 26px; font-weight: bold; margin-bottom: 5px;">
+                            What is a Fraction?
+                        </p>
+                        <div style="font-size: 25px; line-height: 1.35; margin: 0; display: flex; align-items: center; justify-content: center;">
+                            The fraction 
+                            <div class="fraction-img-container">
+                                <svg class="fraction-svg" viewBox="0 0 30 46" width="28" height="42" style="fill: currentColor; stroke: currentColor; color: var(--chalk-white);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                            </div>
+                            means:
+                        </div>
+                        <p class="chalk-yellow" style="font-size: 28px; font-weight: bold; text-align: center; margin: 8px 0; font-family: 'Schoolbell', cursive;">
+                            "1 slice out of 2 equal pieces"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 4: THE VISUALIZATION ================= -->
+            <div class="slide" id="slide-4">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px dashed var(--chalk-blue); padding-bottom: 5px;">
+                    <span class="source-badge"><i class="fa-solid fa-star"></i> Borahae Education</span>
+                    <span class="page-badge">4/8</span>
+                </div>
+
+                <div class="slide-workspace" style="gap: 15px;">
+                    <h1 style="font-size: 38px;">Visualizing the Whole 🟡🔵</h1>
+                    
+                    <div class="split-circle">
+                        <div class="circle-half-label" style="transform: translateX(18px);">
+                            <svg class="fraction-svg" viewBox="0 0 30 46" width="30" height="44" style="fill: currentColor; stroke: currentColor; color: var(--chalk-white);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                        </div>
+                        <div class="circle-half-label" style="transform: translateX(-18px);">
+                            <svg class="fraction-svg" viewBox="0 0 30 46" width="30" height="44" style="fill: currentColor; stroke: currentColor; color: var(--chalk-white);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; width: 100%;">
+                        <p style="font-size: 26px; line-height: 1.35; margin: 0;">
+                            One whole is made up of exactly <strong class="chalk-yellow">2</strong> halves!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 5: RELATIONSHIPS ================= -->
+            <div class="slide" id="slide-5">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px dashed var(--chalk-blue); padding-bottom: 5px;">
+                    <span class="source-badge"><i class="fa-solid fa-star"></i> Borahae Education</span>
+                    <span class="page-badge">5/8</span>
+                </div>
+
+                <div class="slide-workspace" style="gap: 15px;">
+                    <h1 style="font-size: 38px; margin-bottom: 5px;">Linking the Operations 📝</h1>
+                    
+                    <div class="math-column-list">
+                        <!-- Addition Row -->
+                        <div class="math-row">
+                            <span class="arrow-indicator"><i class="fa-solid fa-circle-arrow-right"></i></span>
+                            <span class="chalk-blue" style="font-size: 25px; width: 85px;">Add Eq:</span>
+                            <span style="font-size: 30px; display: inline-flex; align-items: center;">
+                                <svg class="fraction-svg" viewBox="0 0 30 46" width="28" height="42" style="fill: currentColor; stroke: currentColor; color: var(--chalk-white);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                                + 
+                                <svg class="fraction-svg" viewBox="0 0 30 46" width="28" height="42" style="fill: currentColor; stroke: currentColor; color: var(--chalk-white);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                                = 1
+                            </span>
+                        </div>
+                        <!-- Multiplication Row -->
+                        <div class="math-row">
+                            <span class="arrow-indicator" style="color: var(--chalk-cyan);"><i class="fa-solid fa-circle-arrow-right"></i></span>
+                            <span class="chalk-blue" style="font-size: 25px; width: 85px;">Mult Eq:</span>
+                            <span style="font-size: 30px; display: inline-flex; align-items: center;">
+                                <svg class="fraction-svg" viewBox="0 0 30 46" width="28" height="42" style="fill: currentColor; stroke: currentColor; color: var(--chalk-white);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                                × 2 = 1
+                            </span>
+                        </div>
+                        <!-- Division Row -->
+                        <div class="math-row">
+                            <span class="arrow-indicator" style="color: var(--chalk-yellow);"><i class="fa-solid fa-circle-arrow-right"></i></span>
+                            <span class="chalk-blue" style="font-size: 25px; width: 85px;">Div Eq:</span>
+                            <span style="font-size: 30px; display: inline-flex; align-items: center;">
+                                1 ÷ 
+                                <svg class="fraction-svg" viewBox="0 0 30 46" width="28" height="42" style="fill: currentColor; stroke: currentColor; color: var(--chalk-white);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                                = <span class="chalk-yellow" style="font-weight: bold; margin-left: 4px;">?</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 6: THE REVEAL ================= -->
+            <div class="slide" id="slide-6">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px dashed var(--chalk-blue); padding-bottom: 5px;">
+                    <span class="source-badge"><i class="fa-solid fa-star"></i> Borahae Education</span>
+                    <span class="page-badge">6/8</span>
+                </div>
+
+                <div class="slide-workspace" style="gap: 15px;">
+                    <h1 style="font-size: 38px; color: var(--chalk-yellow);">It's "2"! Ding Ding Ding! 🔔</h1>
+                    
+                    <div class="box-yellow" style="text-align: center;">
+                        <div style="font-size: 38px; font-weight: bold; font-family: 'Schoolbell', monospace; margin: 5px 0; display: inline-flex; align-items: center; justify-content: center; width: 100%;" class="chalk-pink">
+                            1 ÷ 
+                            <span class="fraction-img-container" style="color: var(--chalk-pink); margin-top: -4px;">
+                                <svg class="fraction-svg" viewBox="0 0 30 46" width="32" height="48" style="fill: currentColor; stroke: currentColor; color: var(--chalk-pink);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                            </span>
+                            = <span class="chalk-yellow" style="font-size: 48px; margin-left: 8px;">2</span>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(79, 195, 247, 0.05); border: 2px dashed var(--chalk-blue); padding: 12px; border-radius: 12px; text-align: center; width: 100%;">
+                        <p style="font-size: 24px; line-height: 1.35; margin: 0;">
+                            Division asks: <strong>"How many times does the divisor fit?"</strong> 
+                            There are exactly <span class="chalk-yellow">2</span> half-slices inside one whole pie!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 7: INTERACTIVE CARD ================= -->
+            <div class="slide" id="slide-7">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px dashed var(--chalk-blue); padding-bottom: 5px;">
+                    <span class="source-badge"><i class="fa-solid fa-star"></i> Borahae Education</span>
+                    <span class="page-badge">7/8</span>
+                </div>
+
+                <div class="slide-workspace" style="gap: 15px;">
+                    <p class="chalk-yellow" style="text-align: center; font-size: 28px; font-family: 'Schoolbell', cursive; margin: 0;">Pizza Party Trick! 🍕</p>
+                    
+                    <p style="font-size: 24px; text-align: center; margin: 0;">
+                        You have <strong class="chalk-blue">2 whole pizzas</strong>. You cut them all into <strong class="chalk-pink">halves</strong>.
+                    </p>
+                    
+                    <div id="interactive-card" style="cursor: pointer; padding: 15px; border: 3px dashed var(--chalk-pink); border-radius: 16px; background: rgba(255,128,171,0.05); text-align: center; width: 100%;">
+                        <div id="card-text" style="margin: 0; font-size: 32px; font-family: 'Schoolbell', monospace; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                            2 ÷ 
+                            <svg class="fraction-svg" viewBox="0 0 30 46" width="28" height="42" style="fill: currentColor; stroke: currentColor; color: var(--chalk-pink);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                            = <span class="chalk-yellow">?</span>
+                        </div>
+                        <span style="font-size: 18px; color: var(--chalk-blue); display: block; margin-top: 4px;">(Tap to slice and count!)</span>
+                    </div>
+
+                    <div style="background: rgba(79, 195, 247, 0.1); border: 2px dashed var(--chalk-blue); padding: 8px; border-radius: 12px; width: 100%; text-align: center;">
+                        <span id="change-text" style="font-size: 24px;">Slices: <strong>Tap card above!</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SLIDE 8: EXIT TICKET ================= -->
+            <div class="slide" id="slide-8">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px dashed var(--chalk-blue); padding-bottom: 5px;">
+                    <span class="source-badge"><i class="fa-solid fa-star"></i> Borahae Education</span>
+                    <span class="page-badge">8/8</span>
+                </div>
+
+                <div class="slide-workspace" style="gap: 12px;">
+                    <p class="chalk-yellow" style="font-size: 28px; font-family: 'Schoolbell', cursive; text-align: center; margin: 0 0 5px 0;">Test Your Kid! 🎫</p>
+                    
+                    <div style="text-align: center; width: 100%;">
+                        <span style="font-size: 22px;" class="chalk-white">Have them solve this:</span>
+                        <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 12px; border: 2px dashed var(--chalk-blue); margin-top: 4px; display: flex; align-items: center; justify-content: center;">
+                            <span class="chalk-blue" style="font-size: 34px; font-family: 'Schoolbell', cursive; font-weight: bold; display: inline-flex; align-items: center;">
+                                3 ÷ 
+                                <svg class="fraction-svg" viewBox="0 0 30 46" width="30" height="44" style="fill: currentColor; stroke: currentColor; color: var(--chalk-blue);"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                                = ?
+                            </span>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%;">
+                        <input type="text" id="exit-input" placeholder="Type answer (e.g. 6)..." style="background: rgba(0,0,0,0.4); border: 2.5px dashed var(--chalk-pink); color: var(--chalk-yellow); font-family: 'Schoolbell', cursive; font-size: 24px; padding: 6px; width: 100%; border-radius: 12px; text-align: center; outline: none; text-shadow: none;">
+                    </div>
+
+                    <div id="feedback-area" style="min-height: 40px; text-align: center; width: 100%;"></div>
+
+                    <button class="nav-btn" id="verify-btn" style="width: 100%;">Check Answer</button>
+                </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="navigation-row">
+                <button class="nav-btn" id="prev-btn" onclick="moveSlide(-1)"><i class="fa-solid fa-arrow-left"></i> Prev</button>
+                <div style="display: flex; gap: 8px;" id="slide-indicators"></div>
+                <button class="nav-btn" id="next-btn" onclick="moveSlide(1)">Next <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+
+        </div>
+
+        <!-- Decorative Tray elements -->
+        <div class="chalk-tray">
+            <div class="chalk-piece cp-white" onclick="highlightHeader('#ffffff')" title="White Chalk"></div>
+            <div class="chalk-piece cp-blue" onclick="highlightHeader('#80deea')" title="Blue Chalk"></div>
+        </div>
+    </div>
+
+    <script>
+        let activeSlide = 1;
+        const maxSlides = 8;
+
+        function moveSlide(dir) {
+            document.getElementById(`slide-${activeSlide}`).classList.remove('active');
+            activeSlide += dir;
+            if (activeSlide < 1) activeSlide = 1;
+            if (activeSlide > maxSlides) activeSlide = maxSlides;
+            document.getElementById(`slide-${activeSlide}`).classList.add('active');
+            updateIndicators();
+        }
+
+        function updateIndicators() {
+            document.getElementById('prev-btn').style.visibility = (activeSlide === 1) ? 'hidden' : 'visible';
+            document.getElementById('next-btn').style.visibility = (activeSlide === maxSlides) ? 'hidden' : 'visible';
+
+            const indicators = document.getElementById('slide-indicators');
+            indicators.innerHTML = '';
+            for(let i = 1; i <= maxSlides; i++) {
+                const dot = document.createElement('span');
+                dot.style.display = 'inline-block';
+                dot.style.width = '8px';
+                dot.style.height = '8px';
+                dot.style.borderRadius = '50%';
+                dot.style.cursor = 'pointer';
+                dot.style.border = '2px solid #ffffff';
+                dot.style.background = (i === activeSlide) ? 'var(--chalk-yellow)' : 'rgba(255,255,255,0.2)';
+                dot.onclick = () => {
+                    document.getElementById(`slide-${activeSlide}`).classList.remove('active');
+                    activeSlide = i;
+                    document.getElementById(`slide-${activeSlide}`).classList.add('active');
+                    updateIndicators();
+                };
+                indicators.appendChild(dot);
+            }
+        }
+
+        // Slide 7 card click logic (pizza slicing)
+        let cardState = 0;
+        const interactiveCard = document.getElementById('interactive-card');
+        const cardText = document.getElementById('card-text');
+        const changeText = document.getElementById('change-text');
+
+        interactiveCard.addEventListener('click', () => {
+            if (cardState === 0) {
+                cardText.innerHTML = `Count the slices: <span class="chalk-yellow" style="margin-left:6px; margin-right:6px;">2 × 2</span> halves`;
+                changeText.innerHTML = `Slices: <strong>Slicing... 🔪</strong>`;
+                cardState = 1;
+            } else if (cardState === 1) {
+                cardText.innerHTML = `2 wholes = <span class="chalk-pink" style="font-size: 34px; margin-left:6px;">4 halves!</span>`;
+                changeText.innerHTML = `Total Slices: <strong class="chalk-yellow">4 slices! 🍕</strong>`;
+                cardState = 2;
+            } else {
+                cardText.innerHTML = `
+                    2 ÷ 
+                    <svg class="fraction-svg" viewBox="0 0 30 46" width="28" height="42" style="fill: currentColor; stroke: currentColor; color: var(--chalk-pink); display:inline-block; vertical-align:middle; margin: 0 4px;"><text x="15" y="16" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">1</text><path d="M 2,23 Q 15,25 28,23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none" /><text x="15" y="42" font-family="'Schoolbell', cursive" font-size="20" fill="currentColor" text-anchor="middle">2</text></svg>
+                    = <span class="chalk-yellow">?</span>
+                `;
+                changeText.innerHTML = `Slices: <strong>Tap card above!</strong>`;
+                cardState = 0;
+            }
+        });
+
+        // Slide 8 test logic
+        const verifyBtn = document.getElementById('verify-btn');
+        const exitInput = document.getElementById('exit-input');
+        const feedbackArea = document.getElementById('feedback-area');
+
+        verifyBtn.addEventListener('click', () => {
+            const rawValue = exitInput.value.replace(/\s+/g, '').trim();
+            
+            if (rawValue === "") {
+                feedbackArea.innerHTML = `
+                    <span class="chalk-yellow" style="font-size: 18px; font-weight: bold;"><i class="fa-solid fa-pen-nib"></i> Enter an answer first!</span>
+                `;
+            } else if (rawValue === "6") {
+                feedbackArea.innerHTML = `
+                    <span class="chalk-blue" style="font-size: 18px; font-weight: bold;"><i class="fa-solid fa-circle-check"></i> Ding Ding Ding! 🎉 Correct!</span>
+                    <span class="chalk-white" style="font-size: 15px; display: block; margin-top: 1px;">3 wholes cut into halves make <strong>6 slices</strong>!</span>
+                `;
+            } else if (rawValue === "1.5" || rawValue === "1/2") {
+                feedbackArea.innerHTML = `
+                    <span class="chalk-pink" style="font-size: 17px; font-weight: bold;"><i class="fa-solid fa-circle-info"></i> Think: how many halves fit?</span>
+                    <span class="chalk-white" style="font-size: 15px; display: block; margin-top: 1px;">It doesn't mean "half of 3"! Multiply 3 by 2!</span>
+                `;
+            } else {
+                feedbackArea.innerHTML = `
+                    <span class="chalk-pink" style="font-size: 17px; font-weight: bold;"><i class="fa-solid fa-circle-info"></i> Almost! Let's slice it:</span>
+                    <span class="chalk-white" style="font-size: 15px; display: block; margin-top: 1px;">If 1 whole has 2 halves, then 3 wholes have <strong>3 × 2</strong>.</span>
+                `;
+            }
+        });
+
+        function highlightHeader(colorCode) {
+            const currentHeader = document.querySelector('.slide.active h1, .slide.active p');
+            if (currentHeader) {
+                currentHeader.style.color = colorCode;
+                currentHeader.style.textShadow = `0 0 10px ${colorCode}`;
+            }
+        }
+
+        window.onload = function() {
+            updateIndicators();
+        };
+    </script>
+</body>
+</html>
